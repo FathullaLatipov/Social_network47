@@ -16,7 +16,7 @@ def get_all_users_db():
 # Получить определенного пользователя
 def get_exact_user_db(user_id):
     db = next(get_db())
-    checker = db.query(User).filter_by(id=user_id).first()
+    checker = db.query(User).filter_by(user_id=user_id).first()
     if checker:
         return f'Пользователь найден {checker.user_id}'
     else:
@@ -65,7 +65,7 @@ def delete_user_db(user_id):
 def edit_user_info_db(user_id, edit_info, new_info):
     db = next(get_db())
 
-    exact_user = get_exact_user_db(user_id)  # 3
+    exact_user = db.query(User).filter_by(user_id=user_id).first()  # 3
 
     if exact_user:
         if edit_info == 'username':

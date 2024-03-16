@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-from users import RegisterValidator, LoginValidator
-from database.userservice import register_user_db, login_user_db
+from users import RegisterValidator, EditUserValidator
+from database.userservice import register_user_db, login_user_db, get_all_users_db, get_exact_user_db, edit_user_info_db
 
 # Создать компонент
 user_router = APIRouter(prefix='/users', tags=['Управления с пользователями'])
@@ -29,3 +29,29 @@ async def login_user(form_data: OAuth2PasswordRequestForm = Depends()):
         raise HTTPException(status_code=400, detail='Неверный номер или пароль')
     else:
         return user
+
+
+# Запрос на получегтя всех пол-ей
+@user_router.get('/all-user')
+async def get_all_users():
+    return get_all_users_db()
+
+
+# Запрос на получения определенного пользователя
+@user_router.get('/user')
+async def get_user(user_id: int):
+    exact_user = get_exact_user_db(user_id)
+    return exact_user
+
+
+@user_router.put('/edit')
+async def edit_user_db(data: EditUserValidator):
+    change_data = data.model_dump()
+    result = edit_user_info_db(**change_data)
+    print(result)
+    return result
+
+# delete_user_db
+# edit_user_info_db
+# delete_profile_photo_db
+# 15-20min

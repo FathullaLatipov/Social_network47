@@ -11,6 +11,7 @@ class RegisterValidator(BaseModel):
 
 
 # Валидатор для логина
-class LoginValidator(BaseModel):
-    phone_number: str
-    password: str
+class EditUserValidator(BaseModel):
+    user_id: int
+    edit_info: str
+    new_info: str
