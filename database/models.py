@@ -8,7 +8,7 @@ from database import Base
 class User(Base):
     __tablename__ = 'users'
     user_id = Column(Integer, primary_key=True, autoincrement=True)
-    name = Column(String)
+    username = Column(String)
     surname = Column(String)
     phone_number = Column(String, unique=True)
     password = Column(String)
