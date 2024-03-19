@@ -1,7 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from users import RegisterValidator, EditUserValidator
-from database.userservice import register_user_db, login_user_db, get_all_users_db, get_exact_user_db, edit_user_info_db
+from database.userservice import register_user_db, login_user_db, get_all_users_db, get_exact_user_db, \
+    edit_user_info_db, delete_user_db
 
 # Создать компонент
 user_router = APIRouter(prefix='/users', tags=['Управления с пользователями'])
@@ -51,7 +52,9 @@ async def edit_user_db(data: EditUserValidator):
     print(result)
     return result
 
-# delete_user_db
-# edit_user_info_db
-# delete_profile_photo_db
-# 15-20min
+
+@user_router.delete('/delete-user')
+async def delete_user(user_id):
+    user = delete_user_db(user_id)
+    return user
+
