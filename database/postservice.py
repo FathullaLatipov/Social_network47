@@ -107,7 +107,7 @@ def delete_post_photo_db(post_id):
         db.delete(new_photo.photo_path)
         db.commit()
 
-        return 'Фото добавлен!'
+        return 'Фото удален!'
     else:
         return 'Нету поста Брат('
 
